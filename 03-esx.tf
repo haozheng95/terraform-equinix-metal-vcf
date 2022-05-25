@@ -1,25 +1,26 @@
 # provision ESXi hosts
 
 resource "metal_device" "esx" {
-  count             = length(var.esx_names)
-  hostname          = var.esx_names[count.index].esxname
-  project_id        = var.project_id
-  metro             = var.metro
-  plan              = var.esx_size
-  operating_system  = var.vcf_version
-  billing_cycle     = var.billing_cycle
-  custom_data = jsonencode({
+  count                   = length(var.esx_names)
+  hostname                = var.esx_names[count.index].esxname
+  project_id              = var.project_id
+  metro                   = var.metro
+  plan                    = var.esx_size
+  operating_system        = var.vcf_version
+  billing_cycle           = var.billing_cycle
+  hardware_reservation_id = var.esx_names[count.index].hardware_reservation_id
+  custom_data             = jsonencode({
     sshd = {
       enabled = true
-      pwauth = true
+      pwauth  = true
     }
     rootpwcrypt = var.esx_pw
-    esxishell = {
-       enabled = true
+    esxishell   = {
+      enabled = true
     }
     kickstart = {
-      firstboot_shell = "/bin/sh -C"
-      firstboot_shell_cmd = <<EOT
+      firstboot_shell       = "/bin/sh -C"
+      firstboot_shell_cmd   = <<EOT
 sed -i '/^exit*/i /vmfs/volumes/datastore1/configpost.sh' /etc/rc.local.d/local.sh;
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 touch /vmfs/volumes/datastore1/configpost.sh;
@@ -37,22 +38,22 @@ echo 'esxcli network ip interface ipv4 set -i vmk0 -I ${var.esx_ips[count.index]
 echo 'esxcfg-route ${var.esx_gateway}' >> /vmfs/volumes/datastore1/configpost.sh;
 echo 'sed -i '/configpost.sh/d' /etc/rc.local.d/local.sh' >> /vmfs/volumes/datastore1/configpost.sh
 EOT
-      postinstall_shell = "/bin/sh -C"
+      postinstall_shell     = "/bin/sh -C"
       postinstall_shell_cmd = ""
     }
   })
 }
 
 resource "metal_port" "eth0" {
-  count = length(var.esx_names)
-  port_id = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth0"][0]
+  count    = length(var.esx_names)
+  port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth0"][0]
   vlan_ids = metal_vlan.vlans.*.id
-  bonded = false
+  bonded   = false
 }
 
 resource "metal_port" "eth1" {
-  count = length(var.esx_names)
-  port_id = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
+  count    = length(var.esx_names)
+  port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
   vlan_ids = metal_vlan.vlans.*.id
-  bonded = false
+  bonded   = false
 }

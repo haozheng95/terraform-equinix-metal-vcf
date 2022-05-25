@@ -1,8 +1,8 @@
-auth_token      = "your-API-token"
-project_id      = "your-project-ID"
+auth_token      = "h9FYNNnc3sbdcSr3PUyptriEyRQPqwhg"
+project_id      = "a95dc06b-8c3a-4d3b-8dad-c9c0217db111"
 
 # Metro for this stack
-metro         = "da"
+metro         = "sv"
 
 # VLAN provisioning
 vlans = [
@@ -40,16 +40,16 @@ vlans = [
 # Routed IP block size /29=8 /28=16 /27=32
 public_ips_net = "8"
 edge_hostname = "vcf-edge-gateway"
-edge_size     = "c3.small.x86"
+edge_size     = "m3.large.x86"
 edge_os       = "ubuntu_20_04"
 pub_ip         = ""
 
 ## ESX PROVISIONING VARS ##
 esx_names = [
- {esxname = "sfo01-m01-esx01"},
- {esxname = "sfo01-m01-esx02"},
- {esxname = "sfo01-m01-esx03"},
- {esxname = "sfo01-m01-esx04"}
+ {esxname = "sfo01-m01-esx01", hardware_reservation_id = "80fe8ca1-673e-49a6-9c3f-5bb1168694da"},
+ {esxname = "sfo01-m01-esx02", hardware_reservation_id = "bc45471d-cf87-47ec-b0d1-908f38377132"},
+ {esxname = "sfo01-m01-esx03", hardware_reservation_id = "b8502ef9-4770-4bb4-9143-ed5422ad86e6"},
+ {esxname = "sfo01-m01-esx04", hardware_reservation_id = "e9250785-e25c-4b8d-ab94-e2319437a774"}
 ]
 esx_ips = [
  {esxip = "172.16.11.101"},
