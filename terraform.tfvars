@@ -1,4 +1,4 @@
-auth_token = "NrFuR85asc6oSXbMMzdzMXrm2M6zqv6T"
+auth_token = "h9FYNNnc3sbdcSr3PUyptriEyRQPqwhg"
 project_id = "42207fc3-dda2-471e-8c84-179908f64f7b"
 
 # Metro for this stack
