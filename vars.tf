@@ -19,3 +19,4 @@ variable "edge_hostname" {}
 variable "edge_size" {}
 variable "edge_os" {}
 variable "pub_ip" {}
+variable "edge_hardware_reservation_id" {}

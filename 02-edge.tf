@@ -14,7 +14,7 @@ resource "metal_device" "edge" {
   operating_system        = var.edge_os
   billing_cycle           = var.billing_cycle
   project_id              = var.project_id
-  hardware_reservation_id = "743fcb68-8f12-4a05-8889-695560d90614"
+  hardware_reservation_id = var.edge_hardware_reservation_id
   user_data               = templatefile("build-kvm-tf.sh", { pub_ip = metal_reserved_ip_block.routed.cidr_notation })
 }
 
