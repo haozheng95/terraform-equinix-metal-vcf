@@ -66,7 +66,6 @@ def main():
     # networkMapping (to map to networks)
     # propertyMapping (descriptor specific properties)
     # net_mapping = vim.OvfManager.NetworkMapping(name="VM Network")
-    myproperty = get_customspec()
     cisp = vim.OvfManager.CreateImportSpecParams(
         diskProvisioning="thin",
         # networkMapping=net_mapping,
