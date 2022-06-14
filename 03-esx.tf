@@ -1,4 +1,7 @@
 # provision ESXi hosts
+provider "metal" {
+  auth_token = var.auth_token
+}
 
 resource "metal_device" "esx" {
   count                   = length(var.esx_names)
@@ -47,13 +50,13 @@ EOT
 resource "metal_port" "eth0" {
   count    = length(var.esx_names)
   port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth0"][0]
-  vlan_ids = metal_vlan.vlans.*.id
+  vlan_ids = [1611, 1612, 1613, 1614, 2711, 2712, 2713]
   bonded   = false
 }
 
 resource "metal_port" "eth1" {
   count    = length(var.esx_names)
   port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
-  vlan_ids = metal_vlan.vlans.*.id
+  vlan_ids = [1611, 1612, 1613]
   bonded   = false
 }
