@@ -4,7 +4,7 @@ provider "metal" {
 }
 
 resource "metal_device" "esx" {
-  count                   = length(var.esx_names)
+  count                   = 4
   hostname                = var.esx_names[count.index].esxname
   project_id              = var.project_id
   metro                   = var.metro
@@ -57,6 +57,6 @@ resource "metal_port" "eth0" {
 resource "metal_port" "eth1" {
   count    = length(var.esx_names)
   port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
-  vlan_ids = [1611, 1612, 1613]
+  vlan_ids = [1611, 1612, 1613, 1614, 2711, 2712, 2713]
   bonded   = false
 }
