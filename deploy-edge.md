@@ -165,19 +165,18 @@ add action=drop chain=forward comment="" disabled=no
 /ip dhcp-server network add address=172.16.14.0/24 gateway=172.16.14.253 dns-server=172.16.11.4
 /routing bgp template add name=NSXtUplink1TORSIM as=65001 router-id=172.27.11.1
 /routing bgp template add name=NSXtUplink2TORSIM as=65001 router-id=172.27.12.1
-/routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.2 local.address=172.27.11.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.2 local.address=172.27.12.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.3 local.address=172.27.11.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.3 local.address=172.27.12.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.2 local.address=172.27.11.1 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.2 local.address=172.27.12.1 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.3 local.address=172.27.11.1 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.3 local.address=172.27.12.1 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
 /system ntp client set enabled=yes mode=unicast servers=pool.ntp.org
 /system ntp server set enabled=yes manycast=no broadcast=yes broadcast-addresses=172.16.11.255
 ```
-
 ### Now configure the first interface and set your passwords for the VPN by using the following commands ###
 
 Make sure you change the lines below to fit your environment, this includes the IP, the gateway and the passwords.  This will enable L2TP VPN on the Mikrotik with a user called "user1".  The settings will apply a shared secret and user password, **please change the passwords!!**
 ```shell
-/ip address add interface=ether1 address=100.200.20.9/29 network=100.200.20.8
+/ip address add interface=ether1 address=100.200.20.9/29 network=100.200.20.7
 /ip route add gateway=100.200.20.8
 /ip dns set servers=1.1.1.1
 /interface l2tp-server server set enabled=yes use-ipsec=yes ipsec-secret=**YourPassword**
