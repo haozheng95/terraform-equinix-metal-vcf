@@ -7,7 +7,7 @@ metro = "da"
 # VLAN provisioning
 vlans = [
   {
-    vxlan = "1000"
+    vxlan = "1611"
     name  = "Management_Network"
   },
   {
@@ -51,20 +51,20 @@ esx_names                    = [
   { esxname = "sfo01-m01-esx01", hardware_reservation_id = "6969869a-23d7-4faf-b687-fc8561079f50" },
   { esxname = "sfo01-m01-esx02", hardware_reservation_id = "3427b365-cebe-4d9a-a4a7-a096ecb42825" },
   { esxname = "sfo01-m01-esx03", hardware_reservation_id = "fc5b8746-c298-4235-821b-4cc4a83b909d" },
-  { esxname = "sfo01-m01-esx04", hardware_reservation_id = "fcbebd83-dc75-4dd0-9006-79fb64d1d565" }
+#  { esxname = "sfo01-m01-esx04", hardware_reservation_id = "fcbebd83-dc75-4dd0-9006-79fb64d1d565" }
 ]
 esx_ips = [
-  { esxip = "10.166.154.23" },
-  { esxip = "10.166.154.24" },
-  { esxip = "10.166.154.25" },
-  { esxip = "10.166.154.26" }
+  { esxip = "10.232.11.101" },
+  { esxip = "10.232.11.102" },
+  { esxip = "10.232.11.103" },
+  { esxip = "10.232.11.104" }
 ]
-esx_subnet    = "255.255.255.224"
-esx_gateway   = "10.166.154.1"
-esx_dns       = "10.166.154.27"
+esx_subnet    = "255.255.255.0"
+esx_gateway   = "10.232.11.253"
+esx_dns       = "10.232.11.4"
 esx_domain    = "sfo.rainpole.io"
 esx_mgmtvlan  = "1000"
-esx_ntp       = "10.166.154.27"
+esx_ntp       = "10.232.11.253"
 esx_pw        = "$6$rounds=4096$H7lGcpu7$wwdCf1BOTdhGFoWlfNx9r3tkxmDuGYEGZmJMJ2Y1Quks6ps6Uv7aow5xrGJIzBG2zAZyu32UzZ5um2Gr40ac81"
 esx_size      = "m3.large.x86"
 vcf_version   = "vmware_esxi_7_0"
