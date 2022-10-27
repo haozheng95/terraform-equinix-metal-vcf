@@ -85,23 +85,28 @@ add action=drop chain=forward comment="" disabled=no
 /interface vlan add interface=ether2 vlan-id=2712 mtu=9000 name=2712-NSXtEdgeUplink2
 /interface vlan add interface=ether2 vlan-id=2713 mtu=9000 name=2713-NSXtEdgeOverlay
 /ip address add interface=1611-Management address=172.16.11.253/24
+
 /ip address add interface=1612-vMotion address=172.16.12.253/24
 /ip address add interface=1613-vSAN address=172.16.13.253/24
 /ip address add interface=1614-NSXtHostOverlay address=172.16.14.253/24
-/ip address add interface=2711-NSXtEdgeUplink1 address=172.27.11.253/24
-/ip address add interface=2711-NSXtEdgeUplink1 address=172.27.11.1/24
-/ip address add interface=2712-NSXtEdgeUplink2 address=172.27.12.253/24
-/ip address add interface=2712-NSXtEdgeUplink2 address=172.27.12.1/24
+
 /ip address add interface=2713-NSXtEdgeOverlay address=172.27.13.253/24
+
 /ip firewall nat add chain=srcnat src-address=172.16.11.0/24 action=masquerade
 /ip firewall nat add chain=srcnat src-address=172.27.11.0/24 action=masquerade
 /ip firewall nat add chain=srcnat src-address=172.27.12.0/24 action=masquerade
 /ip firewall nat add chain=srcnat src-address=172.27.13.0/24 action=masquerade
 /ip firewall nat add chain=srcnat src-address=172.16.14.0/24 action=masquerade
 /ip firewall address-list add list=safe address=172.16.0.0/12
+
+
+/ip address add interface=1614-NSXtHostOverlay address=10.232.14.253/24
 /ip pool add name=NSXtHostOverlayPool ranges=172.16.14.2-172.16.14.200
 /ip dhcp-server add name=NSXtHostOverlay interface=1614-NSXtHostOverlay address-pool=NSXtHostOverlayPool disabled=no
 /ip dhcp-server network add address=172.16.14.0/24 gateway=172.16.14.253 dns-server=172.16.11.4
+
+
+
 /routing bgp template add name=NSXtUplink1TORSIM as=65001 router-id=172.27.11.1
 /routing bgp template add name=NSXtUplink2TORSIM as=65001 router-id=172.27.12.1
 /routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.2 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
@@ -109,11 +114,25 @@ add action=drop chain=forward comment="" disabled=no
 /routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.3 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
 /routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.3 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
 /system ntp client set enabled=yes mode=unicast servers=pool.ntp.org
-/system ntp server set enabled=yes manycast=no broadcast=yes broadcast-addresses=172.16.11.255
+/system ntp server set enabled=yes manycast=no broadcast=yes broadcast-addresses=10.232.12.255
+
+/routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 local.address=172.27.11.1 remote.address=172.27.11.4 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 local.address=172.27.12.1 remote.address=172.27.12.4 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 local.address=172.27.11.1 remote.address=172.27.11.5 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 local.address=172.27.12.1 remote.address=172.27.12.5 tcp-md5-key=VMware1! output.default-originate=always local.role=ebgp
+
 
 # todo : notice to check address and network
 /ip address add interface=ether1 address=100.200.20.10/29 network=100.200.20.9
 /ip route add gateway=100.200.20.8
 /ip dns set servers=1.1.1.1
+
+
 /interface l2tp-server server set enabled=yes use-ipsec=yes ipsec-secret=Admin!23
-/ppp secret add name=user1 password=Admin!23 local-address=172.16.11.230 remote-address=172.16.11.231
+/ppp secret add name=user2 password=Admin!23 local-address=10.232.11.231 remote-address=10.232.11.232
+
+/ppp secret add local-address=10.232.11.232 name=user3 password=StrongPass profile=default-encryption remote-address=106.39.148.25 service=l2tp
+
+/ip firewall nat add chain=srcnat src-address=10.232.11.0/24 action=masquerade
+
+106.39.148.25

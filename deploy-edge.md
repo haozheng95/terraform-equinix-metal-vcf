@@ -187,3 +187,4 @@ Make sure you change the lines below to fit your environment, this includes the 
 ```shell
 /ip firewall address-list add list=safe address=100.100.10.207
 ```
+/ip firewall nat add chain=srcnat src-address=10.232.50.0/24 action=masquerade

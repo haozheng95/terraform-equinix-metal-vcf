@@ -4,15 +4,16 @@ provider "metal" {
 }
 
 resource "metal_device" "esx" {
-  count                   = length(var.esx_names)
-  hostname                = var.esx_names[count.index].esxname
-  project_id              = var.project_id
-  metro                   = var.metro
-  plan                    = var.esx_size
-  operating_system        = var.vcf_version
-  billing_cycle           = var.billing_cycle
-#  hardware_reservation_id = var.esx_names[count.index].hardware_reservation_id
-  custom_data             = jsonencode({
+#  always_pxe       = false
+  count            = length(var.esx_names)
+  hostname         = var.esx_names[count.index].esxname
+  project_id       = var.project_id
+  metro            = var.metro
+  plan             = var.esx_size
+  operating_system = var.vcf_version
+  billing_cycle    = var.billing_cycle
+  #  hardware_reservation_id = var.esx_names[count.index].hardware_reservation_id
+  custom_data      = jsonencode({
     sshd = {
       enabled = true
       pwauth  = true
@@ -55,16 +56,17 @@ EOT
 #  bonded   = true
 #}
 
-resource "metal_port" "eth0" {
-  count    = length(var.esx_names)
-  port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth0"][0]
-  vlan_ids = [1611, 1612, 1613, 1614, 2711, 2712, 2713]
-  bonded   = false
-}
-#
-#resource "metal_port" "eth1" {
+#resource "metal_port" "eth0" {
 #  count    = length(var.esx_names)
-#  port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
-#  vlan_ids = [1611, 1612, 1613]
+#  port_id  = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth0"][0]
+#  vlan_ids = [1611, 1612, 1613, 1614, 2711, 2712, 2713]
 #  bonded   = false
+#}
+##
+#resource "metal_port" "eth1" {
+#  depends_on = [metal_port.eth0]
+#  count      = length(var.esx_names)
+#  port_id    = [for p in metal_device.esx[count.index].ports : p.id if p.name == "eth1"][0]
+#  vlan_ids   = [1611, 1612, 1613, 1614, 2711, 2712, 2713]
+#  bonded     = false
 #}
