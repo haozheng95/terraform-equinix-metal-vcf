@@ -1,5 +1,5 @@
 auth_token = "h9FYNNnc3sbdcSr3PUyptriEyRQPqwhg"
-project_id = "42207fc3-dda2-471e-8c84-179908f64f7b"
+project_id = "95f7bcfe-71c5-4dec-a875-74097bc1e74c"
 
 # Metro for this stack
 metro = "da"
@@ -36,34 +36,26 @@ vlans = [
   }
 ]
 
-## EDGE PROVISIONING VARS ##
-# Routed IP block size /29=8 /28=16 /27=32
-public_ips_net               = "8"
-edge_hostname                = "vcf-edge-gateway"
-edge_size                    = "m3.large.x86"
-edge_os                      = "ubuntu_20_04"
-pub_ip                       = ""
-edge_hardware_reservation_id = "1179304b-9c64-4b41-aa86-3a4524e4dd6d"
-
+## ESX PROVISIONING VARS ##
 esx_names                    = [
-#  { esxname = "da-1-esx1", hardware_reservation_id = "fc5b8746-c298-4235-821b-4cc4a83b909d" },
-  { esxname = "da-1-esx2", hardware_reservation_id = "fcbebd83-dc75-4dd0-9006-79fb64d1d565" },
-  { esxname = "da-1-esx3", hardware_reservation_id = "fcbebd83-dc75-4dd0-9006-79fb64d1d565" },
-  { esxname = "da-1-esx4", hardware_reservation_id = "fcbebd83-dc75-4dd0-9006-79fb64d1d565" },
+  { esxname = "da-01-esx01"},
+  { esxname = "da-01-esx02"},
+  { esxname = "da-01-esx03"},
+  { esxname = "da-01-esx04"}
 ]
 esx_ips = [
-#  { esxip = "10.232.11.104" },
-  { esxip = "10.232.11.105" },
-  { esxip = "10.232.11.106" },
-  { esxip = "10.232.11.107" },
+  { esxip = "172.16.11.101" },
+  { esxip = "172.16.11.102" },
+  { esxip = "172.16.11.103" },
+  { esxip = "172.16.11.104" }
 ]
 esx_subnet    = "255.255.255.0"
-esx_gateway   = "10.232.11.253"
-esx_dns       = "10.232.11.4"
+esx_gateway   = "172.16.11.253"
+esx_dns       = "172.16.11.4"
 esx_domain    = "eqx.vmware.com"
 esx_mgmtvlan  = "1611"
-esx_ntp       = "10.232.11.250"
-esx_pw        = "$6$D.KxPk3h$bNEqmLU5IRUjlwm/kZ0NFMcdb9vLILgDjo3JYGqGruipKb2dW2KjU3D1FeC7BgFvc5ZTB6KRfRbkIWpQ9N4Ql."
+esx_ntp       = "172.16.11.253"
+esx_pw        = "$6$qLziTgXpz$m.NoSunRpyY8uaBMEke5ZXLiHToFrhzS4KH6Ui98qP3STQd3B9nt1/KOascxZTxi2ipZ.ofQw3AJusFE5S8CQ."
 esx_size      = "m3.large.x86"
 vcf_version   = "vmware_esxi_7_0_vcf"
 billing_cycle = "hourly"

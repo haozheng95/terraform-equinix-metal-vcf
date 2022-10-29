@@ -109,10 +109,10 @@ add action=drop chain=forward comment="" disabled=no
 
 /routing bgp template add name=NSXtUplink1TORSIM as=65001 router-id=172.27.11.1
 /routing bgp template add name=NSXtUplink2TORSIM as=65001 router-id=172.27.12.1
-/routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.2 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.2 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.3 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
-/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.3 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.2 local.address=172.27.11.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.2 local.address=172.27.12.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE2-1 templates=NSXtUplink1TORSIM remote.as=65003 remote.address=172.27.11.3 local.address=172.27.11.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
+/routing bgp connection add name=EDGE1-2 templates=NSXtUplink2TORSIM remote.as=65003 remote.address=172.27.12.3 local.address=172.27.12.1 tcp-md5-key=VMw@re1! output.default-originate=always local.role=ebgp
 /system ntp client set enabled=yes mode=unicast servers=pool.ntp.org
 /system ntp server set enabled=yes manycast=no broadcast=yes broadcast-addresses=10.232.12.255
 
