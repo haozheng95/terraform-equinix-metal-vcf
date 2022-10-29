@@ -14,9 +14,3 @@ variable "esx_dns" {}
 variable "esx_domain" {}
 variable "esx_mgmtvlan" {}
 variable "esx_ntp" {}
-variable "public_ips_net" {}
-variable "edge_hostname" {}
-variable "edge_size" {}
-variable "edge_os" {}
-variable "pub_ip" {}
-variable "edge_hardware_reservation_id" {}
