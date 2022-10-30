@@ -38,16 +38,10 @@ vlans = [
 
 ## ESX PROVISIONING VARS ##
 esx_names                    = [
-  { esxname = "da-01-esx01"},
-  { esxname = "da-01-esx02"},
-  { esxname = "da-01-esx03"},
-  { esxname = "da-01-esx04"}
+  { esxname = "da-01-esx05"},
 ]
 esx_ips = [
-  { esxip = "172.16.11.101" },
-  { esxip = "172.16.11.102" },
-  { esxip = "172.16.11.103" },
-  { esxip = "172.16.11.104" }
+  { esxip = "172.16.11.105" },
 ]
 esx_subnet    = "255.255.255.0"
 esx_gateway   = "172.16.11.253"
